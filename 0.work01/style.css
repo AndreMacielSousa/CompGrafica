@@ -1,0 +1,36 @@
+
+     body {
+     margin: 0;
+     overflow: hidden;
+     color: white;
+     text-align: center;
+     }
+     
+     h1 {
+     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
+     position: absolute;
+     width: 100%;
+     z-index: 1;
+     font-size: 1.5rem;
+     }
+     
+     a {
+     color: grey;
+     }
+     a:hover{
+     color: red;
+     }
+     
+     /* varios Id */
+
+     .variosId {
+          color: black;
+        }
+     
+     /* unico Id */
+
+     #scene-container {          
+          position: absolute;
+          width: 100%;
+          height: 100%;
+         }
