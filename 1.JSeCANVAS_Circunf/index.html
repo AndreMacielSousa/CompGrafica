@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+        <meta charset="UTF-8">
+
+        <title>21020 Comp. Grafica - AF2 a)</title>
+
+        <link href="style.css" type="text/css" rel="stylesheet"/>
+
+        <script type="text/javascript" src="funcoes.js"></script>
+
+
+    </head>
+
+    <body>
+
+        
+        <h1><a href="www.andremaciel.pt/uab">Realize simulação dos seguintes algoritmos </a></h1>
+        <p>a2) Calcule os pontos do ecrã do seguinte arco de circunferência [(0, R),(R, 0)] e R = 9. </p>
+        <p>identiique centro da conferencia (x,y) e respectivo raio</p>
+        
+        <form>
+            <p>(x0=<input type="text" size="1" id="x0" value="10"/>,
+               y0=<input type="text" size="1" id="y0" value="10"/> )
+               R=(<input type="text" size="1" id="r" value="9"/> )
+               Cor:
+            <select id="corselect">
+                <option value="black">Preto</option>
+                <option value="red">Vermelho</option>
+                <option value="green">Verde</option>
+                <option value="black">Preto</option>
+                <option value="blue">Azul</option>
+            </select>               
+           
+            <p> <input type="button" value="Desenhar" onclick="init();"/> </p>
+            <p> <input type="button" value="Limpar" onclick="location.reload();"/> </p>
+        </form>
+       
+        <canvas id="myCanvas" width="400" height="400">
+        Your browser does not support the canvas element.
+        </canvas>
+
+        <div id="operacoesA"></div>
+     
+
+         </body>
+</html>

@@ -28,6 +28,7 @@ function init() {
     
     //4. Criar Objectos antes de rendererizar cena.
     this.createACube(); 
+    this.createACube2();
     this.createPlane();
     this.creatSphere();
 
@@ -73,6 +74,33 @@ function createACube() {
     //  MeshPhongMaterial which computes lighting at every pixel. 
     //  The MeshPhongMaterial also supports specular highlights.
     var material = new THREE.MeshLambertMaterial( {               //wireframe - para limites
+        color: 0xFFFFFF,
+        wireframe: true
+     } ); 
+    
+    //4.3 combinar a Forma e o Material
+    cube = new THREE.Mesh( geometry, material );
+
+    //4.4 Adicionar à Cena
+    cube.position.set(-4,3,0)
+    cube.castShadow = true;                                    //projecta sombra
+    scene.add( cube );
+};
+
+
+function createACube2() {
+
+    //4.1 Criar a Geometria (forma)
+    var geometry = new THREE.BoxBufferGeometry( 4, 4, 4 );     // largura, altura, profundidade.
+
+    //4.2 Definir o Material para a forma
+    //  MeshBasicMaterial + performance 
+    //  MeshStandardMaterial - performance + real e ncessário  tratar luz
+    //  The MeshBasicMaterial is not affected by lights. 
+    //  The MeshLambertMaterial computes lighting only at the vertices vs the 
+    //  MeshPhongMaterial which computes lighting at every pixel. 
+    //  The MeshPhongMaterial also supports specular highlights.
+    var material = new THREE.MeshLambertMaterial( {               //wireframe - para limites
         color: 0xFF0000,
         //wireframe: true
      } ); 
@@ -85,6 +113,8 @@ function createACube() {
     cube.castShadow = true;                                    //projecta sombra
     scene.add( cube );
 };
+
+
 
 // Plano
 function createPlane(){
@@ -145,7 +175,7 @@ function renderizador() {
     renderer.setPixelRatio(window.devicePixelRatio);
     
     //6.4 Adicionar Canvas Element à pagina
-    container.appendChild( renderer.domElement );
+    container.append( renderer.domElement );
 
 };
 

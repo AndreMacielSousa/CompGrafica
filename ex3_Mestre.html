@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Topico 3 - Exercicio 3 - Recorte 2D</title>
+    <script type="text/javascript" src="./0.Modelo\js/three.js"></script>
+
+    <style>
+        body {
+            /* set margin to 0 and overflow to hidden, to go fullscreen */
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<button id="rec" type="button">Alterna Recorte...</button>
+<button id="reset" type="button">Reset!</button>
+
+<!-- Div which will hold the Output -->
+<div id="WebGL-output"></div>
+
+<!-- Javascript code that runs Three.js -->
+<script type="text/javascript">
+
+    // once everything is loaded, we run our Three.js stuff.
+    function init() {
+
+        // create a scene, that will hold all our elements such as objects, cameras and lights.
+        var scene = new THREE.Scene();
+
+        // create a camera, which defines where we're looking at.
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        // position and point the camera to the center of the scene
+        camera.position.set(0,0,20)
+        camera.lookAt(scene.position);
+
+        // create a render and set the size
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(new THREE.Color(0x000000));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // show axes in the screen
+        var axes = new THREE.AxesHelper(20);
+        scene.add(axes);
+
+        //yellow plane
+        var planeGeometry = new THREE.PlaneGeometry(6, 6, 1, 1);
+        var planeMaterial = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+        var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        plane.position.set(0,0,0);
+        scene.add(plane);
+
+        //pink dodecahedronGeometry
+        var dodecahedronGeometry = new THREE.DodecahedronBufferGeometry(2);
+        var dodecahedronMaterial = new THREE.MeshBasicMaterial( { color: 0xff69b4 } );
+        var dodecahedron = new THREE.Mesh(dodecahedronGeometry,dodecahedronMaterial);
+        dodecahedron.position.set(0,0,0);
+        scene.add(dodecahedron);
+
+        //dodecahedron edges
+        var geo = new THREE.EdgesGeometry( dodecahedron.geometry );
+        var mat = new THREE.LineBasicMaterial( { color: 0xffffff} );
+        var wireframe = new THREE.LineSegments( geo, mat );
+        dodecahedron.add( wireframe );
+
+        //red torus
+        var TorusGeometry = new THREE.TorusKnotBufferGeometry(5,1.5);
+        var TorusMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+        var torus = new THREE.Mesh(TorusGeometry, TorusMaterial);
+        torus.position.set(-9,0,-20);
+        scene.add(torus);
+
+        //torus edges
+        var geo = new THREE.EdgesGeometry( torus.geometry );
+        var wireframe = new THREE.LineSegments( geo, mat );
+        torus.add( wireframe );
+
+        // add the output of the renderer to the html element
+        document.getElementById("WebGL-output").appendChild(renderer.domElement);
+
+        // call the render function
+        renderScene();
+
+        function renderScene() {
+
+            // rotate the dodecahedron around its axes
+            dodecahedron.rotation.x += 0.01;
+            dodecahedron.rotation.y += 0.01;
+            dodecahedron.rotation.z += 0.01;
+
+            // rotate the plane around its axes
+            plane.rotation.x += 0.01;
+            plane.rotation.y += 0.01;
+            plane.rotation.z += 0.01;
+
+            // render using requestAnimationFrame
+            requestAnimationFrame(renderScene);
+            renderer.render(scene, camera);
+        }
+
+        //tipo de recorte: 1=horizontal, 2=vertical
+        var tipoRecorte = 1;
+
+        document.getElementById("rec").onclick = function() {
+            //recorta na horizontal
+            if(tipoRecorte == 1) {
+                 //Recorte 2D
+                var clippingPlane = new THREE.Plane( new THREE.Vector3( 0, 1, 0 ), 1 );
+                console.log(tipoRecorte);
+                tipoRecorte = 2;
+            }
+            //recorta na vertical
+            else{
+                 //Recorte 2D
+                var clippingPlane = new THREE.Plane( new THREE.Vector3( 1, 0, 0 ), 1 );
+                console.log(tipoRecorte);
+                tipoRecorte = 1;
+            }
+
+            //aplica o recorte
+            renderer.clippingPlanes = [ clippingPlane ];
+            renderer.localClippingEnabled = true;
+        }
+
+        document.getElementById("reset").onclick = function() {
+            //volta a mostrar a imagem original
+            var clippingPlane = new THREE.Plane( new THREE.Vector3( 0, 0, 0 ) );
+            renderer.clippingPlanes = [ clippingPlane ];
+            renderer.localClippingEnabled = false;
+            tipoRecorte = 1;
+        }
+
+    }
+
+    window.onload = init;
+
+
+</script>
+</body>
+</html>

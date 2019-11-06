@@ -1,0 +1,32 @@
+
+
+body{
+    text-align: center;
+    background-color: lightblue;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
+}
+
+
+
+h1 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    font-size: 1.5rem;
+}
+
+#scene-container{          
+    
+    width: 80%;
+    height: 80%;
+    margin: 0px auto;
+
+   }
+    
+a {
+    color: white;
+    }
+    a:hover{
+    color: purple;
+    }

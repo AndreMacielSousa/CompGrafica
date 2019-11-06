@@ -1,0 +1,60 @@
+<!--
+    21020 - Computação gráfica 2019-2020
+    Tópico 3 - Preenchimento e Recorte 2D
+
+    Nelson Russa - 1401826
+-->
+<html>
+    <head>
+        <title>21020 - Computação gráfica 2019-2020</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="libs/jquery-3.4.1.min.js"></script>
+        <!-- -->
+        <script type="text/javascript" src="scanline.js"></script>
+        <script type="text/javascript" src="graficos.js"></script>
+        <script type="text/javascript" src="exerciciosTopico3_1.js"></script>
+    </head>
+    <body onload="init();">
+        <div style="text-align: center;">
+            <span style="font-size:20px">Computação gráfica - Tópico 3 - Preenchimento e Recorte 2D</span><br />
+            <span style="font-size:10px">Nelson Russa - 1401826</span><br />
+        </div>
+        <hr />
+        <h1>1) Preenchimento de Áreas:</h1>
+        <h2>Algoritmo de Varrimento ou Scan-line </h2>
+
+        <br />
+        <u>Pontos:</u> <br />
+        <select id="SELECTPoints" onchange="refresh();">
+        </select>
+        <br />
+        <br />
+        <u>Linhas:</u> <br />
+        <div id="DIVLines"></div>
+        <br />
+        a.1)<br />
+        <u>Tabela de arestas (Edge Table):</u><br />
+        <table id="TABLE_ET">
+            <tr>
+                <td style="text-align:center;">y</td>
+                <td></td>
+            </tr>
+        </table>
+        <br />
+        a.2)<br />
+        <table id="TABLE_EAT_ET">
+            <tr>
+                <td style="width:20px;text-align:center;"><u>y</u></td>
+                <td style="padding-right:20px"><u>Tabela de Arestas Ativas (AET)</u></td>
+                <td style="padding-right:20px"><u>Tabela de Arestas (ET)</u></td>
+                <td></td>
+            </tr>
+        </table>
+        <br />
+        <u>Gráfico:</u><br />
+        Desenhar poligono:<input type="checkbox" id="cbDrawPolygon" onclick="refresh();">
+        <br />
+        <canvas id="tela" style="border: solid 1px black;">
+        </canvas> 
+    </body>
+</html>

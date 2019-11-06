@@ -1,0 +1,44 @@
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>21020 Comp. Grafica - AF3 </title>
+
+    <link href="style.css" type="text/css" rel="stylesheet" />
+
+    <!-- Inclusão de Three.JS 
+        a Variavel Global THREE fica disponivel para os script carregados -->
+    <script type="text/javascript" src="js/three.js"></script>
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <!--   <script type="text/javascript" src="js/OrbitControls.js"></script> -->
+
+
+
+</head>
+
+<body>
+
+    <h1><a href="www.andremaciel.pt/uab">Desenho de primitivas e segmentos de retas</a></h1>
+    <p>Programe JavaScript, utilizando a framework Three.js um programa que permita
+        executar o recorte da cena segundo os planos definidos por (1, 0, 0) e (0, 1, 0).
+        A cena é composta por um dodecaedro e um torus. Além disso, a cena possui
+        alguma animação, fazendo com que o gire lentamente em torno dos eixos x e
+        y.</p>
+
+
+    <button id="clipping" type="button" class="btn"> Alterna Recorte</button>
+    <button id="reset" type="button" class="btn" onclick="location.reload();">Reset</button>
+    <button id="cam" type="button" value="1" class="btn"> Alterna Camera</button>
+
+
+    <div id="scene-container"> </div>
+
+    <footer>
+        <script src="funcoes.js"></script>
+    </footer>
+
+</body>
+
+</html>

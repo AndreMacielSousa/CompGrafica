@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+        <meta charset="UTF-8">
+
+        <title>21020 Comp. Grafica - AF2 a)</title>
+
+        <link href="style.css" type="text/css" rel="stylesheet"/>
+
+        <script type="text/javascript" src="funcoes.js"></script>
+
+
+    </head>
+
+    <body>
+
+        
+        <h1><a href="www.andremaciel.pt/uab">Implementação em javascript</a></h1>
+        <p>Scan Line Testes/p>
+
+        <p>[AB],[AC],[AD],[AE],[AF],[AG] </p>
+
+        <form>
+            <p>A(<input type="text" size="1" id="xa" value="0"/> ,<input type="text" size="1" id="ya" value="0"/>)</p>
+            <p>B(<input type="text" size="1" id="xb" value="20"/> ,<input type="text" size="1" id="yb" value="2"/>)
+            C(<input type="text" size="1" id="xc" value="20"/> ,<input type="text" size="1" id="yc" value="4"/>)
+            D(<input type="text" size="1" id="xd" value="20"/> ,<input type="text" size="1" id="yd" value="8"/>)
+            E(<input type="text" size="1" id="xe" value="20"/> ,<input type="text" size="1" id="ye" value="12"/>)
+            F(<input type="text" size="1" id="xf" value="20"/> ,<input type="text" size="1" id="yf" value="16"/>)
+            G(<input type="text" size="1" id="xg" value="20"/> ,<input type="text" size="1" id="yg" value="20"/>)</p>
+           
+            <p> <input type="button" value="Desenhar" onclick="init();"/> </p>
+            <p> <input type="button" value="Limpar" onclick="location.reload();"/> </p>
+        </form>
+
+        <canvas id="myCanvas" width="400" height="400">
+        Your browser does not support the canvas element.
+        </canvas>
+
+        <div id="operacoesA"></div>
+
+    </body>
+</html>

@@ -1,0 +1,54 @@
+<html>
+    <head>
+
+        <meta charset="UTF-8">
+
+        <title>21020 Comp. Grafica - AF2 a)</title>
+
+        <link href="style.css" type="text/css" rel="stylesheet"/>
+
+        <!-- JQuery -->
+        <script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+
+        <!-- Inclusão de Three.JS 
+        a Variavel Global THREE fica disponivel para os script carregados -->
+        <script type="text/javascript" src="js/three.js"></script>
+
+
+    </head>
+
+    <body>
+
+        <h1><a href="www.andremaciel.pt/uab">Realize simulação dos seguintes algoritmos </a></h1>
+        <p>a2) Calcule os pontos do ecrã do seguinte arco de circunferência [(0, R),(R, 0)] e R = 9. </p>
+        <p>identiique centro da conferencia (x,y) e respectivo raio</p>
+
+        <form>
+            <p>(x0=<input type="text" size="1" id="x0" value="0"/>,
+               y0=<input type="text" size="1" id="y0" value="0"/> )
+               R=(<input type="text" size="1" id="r" value="9"/> )
+               Cor:
+            <select id="corselect">
+                <option value="red">Vermelho</option>
+                <option value="green">Verde</option>
+                <option value="white">Branco</option>
+                <option value="yellow">Amarelo</option>
+                <option value="blue">Azul</option>
+            </select>               
+           
+            <p> <input type="button" value="Desenhar" onclick="init();"/> </p>
+            <p> <input type="button" value="Limpar" onclick="location.reload();"/> </p>
+        </form>
+
+        <div id="output"> </div>
+        <div id="operacoesA"></div>
+        <script src="funcoes.js"></script>
+
+            
+
+
+    </body>
+</html>
