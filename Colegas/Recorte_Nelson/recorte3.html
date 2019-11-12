@@ -1,0 +1,41 @@
+<!--
+    21020 - Computação gráfica 2019-2020
+    Tópico 3 - Preenchimento e Recorte 2D
+
+    Nelson Russa - 1401826
+-->
+<html>
+    <head>
+        <title>21020 - Computação gráfica 2019-2020</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="libs/three.min.js"></script>
+        <script type="text/javascript" src="libs/jquery-3.4.1.min.js"></script>
+        <!-- -->
+        <script type="text/javascript" src="exerciciosTopico3_3.js"></script>
+        <style>
+             body {
+                margin: 0;
+                overflow: hidden;
+            }
+            #DIVRecorte
+            {
+                color:white;
+                position:absolute;
+                left:0px;
+                top:0px;
+            }
+        </style>
+    </head>
+    </body><body onload="main();">
+        <div id="DIVRecorte">
+            Recorte:
+            <select id="SELECTClipping" onchange="refresh();">
+                <option>Nenhum</option>
+                <option>0, 1, 0</option>
+                <option>1, 0, 0</option>
+                <option>0, 0, 1</option>
+            </select>
+        </div>
+        <div id="WebGL-output"></div>
+    </body>
+</html>       

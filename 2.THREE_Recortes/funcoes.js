@@ -9,7 +9,7 @@ var container;      //referencia ao elemento que apresentara a scene
 // Variaveis Globais para este Projecto
 
 var torus1, torus1w;
-var dodecaedro, dodecaedrow;
+var dodecaedrow;
 var plano;
 var recorte;
 
@@ -27,7 +27,8 @@ function init(){
     criarCamera();
 
     //4. Criar Objectos antes de rendererizar cena.
-    criardodecaedro();
+    var dodecaedro = criardodecaedro();
+    scene.add( dodecaedro );
     criardodecaedrow();
     criarPlano();
 
@@ -76,7 +77,8 @@ function criardodecaedro(){
     var material = new THREE.MeshBasicMaterial( { color: 0xCC3299, wireframe: false } ); 
     dodecaedro = new THREE.Mesh( geometry, material );
     dodecaedro.position.set(0,0,0);
-    scene.add( dodecaedro );
+    return dodecaedro;
+    
 
 }
 
