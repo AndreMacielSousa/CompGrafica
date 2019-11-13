@@ -47,6 +47,17 @@ function initial() {
 	renderer.setSize(container.clientWidth, container.clientHeight);
 	container.append(renderer.domElement);
 
+	// Movimentos
+	controls = new THREE.OrbitControls (camera, renderer.domElement);
+
+	//Backgound
+	const loader = new THREE.TextureLoader();
+	const bgTexture = loader.load('img/earth_specular_2048.jpg');
+	scene.background = bgTexture;
+
+	// FPS
+	fps();
+		
 	// Renderizacao
 	animate();
 }
@@ -60,7 +71,7 @@ function createToys() {
 	var mat = new THREE.LineBasicMaterial({ color: "white" });
 
 	var geoPlano = new THREE.PlaneGeometry(7, 7);
-	var matPlano = new THREE.MeshBasicMaterial({ color: "yellow" });
+	var matPlano = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('img/uab.jpg'), side: THREE.DoubleSide });
 	plano = new THREE.Mesh(geoPlano, matPlano);
 	// plano.position.set(0,0,0);
 	scene.add(plano);
@@ -120,3 +131,31 @@ function recort() {
 }
 
 
+// Resize
+
+function onWindowResize() {
+
+    camera.aspect = container.clientWidth / container.clientHeight; // aspect ratio
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(  container.clientWidth, container.clientHeight );
+
+}
+
+window.addEventListener('resize', onWindowResize, false);
+
+//FPS
+
+function fps(){
+	var script=document.createElement('script');
+	script.onload=function(){
+		var stats=new Stats();
+		document.body.appendChild(stats.dom);
+		requestAnimationFrame(function loop(){
+			stats.update();
+			requestAnimationFrame(loop)
+			});
+		};
+		script.src='js/stats.js';
+		document.head.appendChild(script);
+}
