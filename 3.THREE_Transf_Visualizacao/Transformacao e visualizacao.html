@@ -1,0 +1,169 @@
+<html>
+	<head>
+		<h2>Transformacao e Visualizacao</h2>
+		<p><b>As setas giram dois cubos em torno dos eixos x e y e aumentam os outros dois.<br>
+			As teclas ENTER ou HOME resetam as rotacoes.</b></p>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body onload = init()>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
+		<script>
+			var rotateX = 0.4;   // rotação no eixo x
+			var rotateY = -.1;  // rotatacão no eixo y
+			var scene, camera, renderer;
+			var geometry, material;
+			var groupA, groupB, groupC;
+			var windowWidth, windowHeight;
+			var views = [
+				{
+					left: 0,
+					bottom: 0,
+					width: 0.5,
+					height: 1.0,
+					background: new THREE.Color( 0.5, 0.5, 0.7 ),
+					eye: [ 0, 300, 1800 ],
+					up: [ 0, 1, 0 ],
+					fov: 30,
+				},
+				{
+					left: 0.5,
+					bottom: 0,
+					width: 0.5,
+					height: 0.5,
+					background: new THREE.Color( 0.7, 0.5, 0.5 ),
+					eye: [ 0, 1800, 0 ],
+					up: [ 0, 0, 1 ],
+					fov: 45,
+				},
+				{
+					left: 0.5,
+					bottom: 0.5,
+					width: 0.5,
+					height: 0.5,
+					background: new THREE.Color( 0.5, 0.7, 0.7 ),
+					eye: [ 1400, 800, 1400 ],
+					up: [ 0, 1, 0 ],
+					fov: 60,
+				}
+			];
+
+			function init() {
+				renderer = new THREE.WebGLRenderer();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );
+				
+			// Criação de camera virtual com projeção em perspectiva, que vai ser depois adicionada ao objeto render
+				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 400 );
+				camera.position.set( 0, 0, 50 );
+				camera.lookAt( 0, 0, 0 );
+				
+				// Criação do objeto cena que vai ser depois adicionado ao objeto render
+				scene = new THREE.Scene();
+				
+				// Desenha cena
+				drawThings();
+				render();
+				document.addEventListener("keydown", doKey, false); // adiciona key listener
+			}
+				
+			function render() {
+				updateSize();
+				for ( var ii = 0; ii < views.length; ++ ii ) {
+
+					var view = views[ ii ];
+				
+					var left = Math.floor( window.innerWidth * view.left );
+					var bottom = Math.floor( window.innerHeight * view.bottom );
+					var width = Math.floor( window.innerWidth * view.width );
+					var height = Math.floor( window.innerHeight * view.height );
+
+					renderer.setViewport( left, bottom, width, height );
+					renderer.setScissor( left, bottom, width, height );
+					renderer.setScissorTest( true );
+					renderer.setClearColor( view.background );
+
+					camera.aspect = width / height; // Para garantir que não há distorção
+					camera.updateProjectionMatrix(); // atualiza de seguida a matriz de projeção
+
+					renderer.render( scene, camera );
+				}
+			}
+			
+			function updateSize() {
+				if ( windowWidth != window.innerWidth || windowHeight != window.innerHeight ) {
+					windowWidth = window.innerWidth;
+					windowHeight = window.innerHeight;
+					renderer.setSize( windowWidth, windowHeight );
+				}
+			}
+			
+			// Construção de um objeto por agrupamento e hierarquia
+			function drawThings() {
+				geometry = new THREE.BoxBufferGeometry( 3, 3, 3 );
+		
+				var cubeA = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( {color: 0x4a638a} ) );
+				cubeA.position.set( 10, 10, 0 );
+				
+				var cubeB = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( {color: 0xe0720b} ) );
+				cubeB.position.set( -10, -10, 0 );
+				
+				var cubeC = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( {color: 0xb90be0} ) );
+				cubeC.position.set( 10, -10, 0 );
+				
+				var cubeD = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( {color: 0x00ff00} ) );
+				cubeC.position.set( 5, -10, 0 );
+
+				groupA = new THREE.Group(); // Transformações em A só afetam A
+				groupA.add( cubeA );
+				groupA.add( cubeB );
+
+				groupB = new THREE.Group(); // Transformações em B só afetam B
+				groupB.add( cubeC );
+				groupB.add( cubeD );
+			
+				groupC = new THREE.Group(); // Transformações em C afetam A e B
+				groupC.add( groupA );
+				groupC.add( groupB );
+				
+				scene.add( groupC );
+				
+				//animate();
+			}
+			
+			function animate() {
+				requestAnimationFrame( animate ); // chama-se recursivamente
+
+				groupC.rotation.x += 0.01;
+				groupC.rotation.y += 0.01;		
+				groupA.scale.x += 0.01;
+
+				renderer.render( scene, camera );
+			};
+			
+			//animate();
+			
+			function doKey(evt) {
+				var rotationChanged = true;
+				switch (evt.keyCode) {
+					case 37: rotateY -= 0.05; break;        // seta esquerda
+					case 39: rotateY +=  0.05; break;       // seta direita
+					case 38: rotateX -= 0.05; break;        // seta para cima
+					case 40: rotateX += 0.05; break;        // seta para baixo
+					case 13: rotateX = rotateY = 0; break;  // enter
+					case 36: rotateX = rotateY = 0; break;  // home
+					default: rotationChanged = false;
+				}
+				if (rotationChanged) {
+				   groupA.rotation.set(rotateX,rotateY,0);// apenas o groupA gira em torno de x e y
+				   groupB.scale.x += 0.01; // apenas o grupo B aumenta em x
+				   groupC.translateX( 0.01 ); // tudo se move!
+				   render();
+				   evt.preventDefault();
+				}
+			}
+		</script>
+	</body>	
+</html>

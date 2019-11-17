@@ -1,0 +1,74 @@
+<html>
+	<head>
+		<title>Recorte de geometrias</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+			
+		</style>
+	</head>
+	<body>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
+		<script>
+			var scene, camera, renderer, cube;
+
+			
+			init();
+			animate();
+			
+			function init() {
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+				renderer = new THREE.WebGLRenderer({ alpha: true,antialias: true  });
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.append( renderer.domElement );
+                camera.position.z = 13;
+                camera.position.x = -5;
+                camera.lookAt(scene.position);
+                
+                window.addEventListener('resize', function(){
+                    var width = window.innerWidth;
+                    var height = window.innerHeight;
+                    renderer.setSize(width,height);
+                    camera.aspect = width/height;
+                    camera.updateProjectionMatrix();
+                });
+                
+                
+                var geometry = new THREE.BoxBufferGeometry (10,10,10);
+                var cubematerials =
+                [
+                    new THREE.MeshBasicMaterial ({map: new THREE.TextureLoader().load( 'seat.png'), side: THREE.DoubleSide}), //LEFT
+                    new THREE.MeshBasicMaterial ({map: new THREE.TextureLoader().load( 'audi.png'), side: THREE.DoubleSide}), //RIGHTd
+                    new THREE.MeshBasicMaterial ({color: 0xFFFFFF, side: THREE.DoubleSide}), //TOP
+                    new THREE.MeshBasicMaterial ({color: 0xFFFFFF, side: THREE.DoubleSide}), //BOTTOM
+                    new THREE.MeshBasicMaterial ({map: new THREE.TextureLoader().load( 'vw.png'), side: THREE.DoubleSide}),   // FRONTd
+                    new THREE.MeshBasicMaterial ({map: new THREE.TextureLoader().load( 'skoda.png'), side: THREE.DoubleSide}), //BACK
+                ]
+                var material = new THREE.MeshFaceMaterial(cubematerials);
+                cube = new THREE.Mesh(geometry,material);
+                scene.add(cube);
+
+
+               // var light = new THREE.DirectionalLight( 0xffffff, 0.5 );
+               // light.position.set( 0, 5, 100 );
+              //  scene.add( light );
+
+
+			}
+			
+
+			
+		// Adiciona efeito animado a cena
+			function animate () {
+                requestAnimationFrame( animate );
+                
+                    cube.rotation.y += 0.005;
+
+
+				renderer.render( scene, camera );
+			};
+		</script>
+	</body>
+</html>
